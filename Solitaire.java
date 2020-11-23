@@ -114,7 +114,7 @@ public class Solitaire {
 
 	public static void encrypt(String e){
 		//remove non-letters
-		String original = e.toUpperCase;
+		String original = e.toUpperCase();
 		while(original.contains(" ")){
 			original = original.replaceAll("\\s", "");
 		}
