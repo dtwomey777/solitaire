@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  */
 
-//Bill: Sorting Algorithm
+	//Bill: Sorting Algorithm
 	//Declan: Encryption
 	//Amy: User Interface
 
@@ -28,8 +28,9 @@ public class Solitaire {
 	* test method recommended by pujara
 	* prints the array passed in
 	*
-	*@param array - an array
+	* @param array - an array
 	*/
+	
 	public static void printArray(int[] array){
 		for(int i = 0; i < array.length - 1; i++){
 			System.out.println(array[i]);
@@ -39,9 +40,10 @@ public class Solitaire {
 	/**
 	* asks for file name, loops until a valid file is inputed
 	*
-	*@param s - the Scanner object
-	*@return file - the filename 
+	* @param s - the Scanner object
+	* @return file - the filename 
 	*/
+	
 	public static String getFileName(Scanner s){ 
                 boolean found = false;
                 String file = "";
@@ -63,10 +65,11 @@ public class Solitaire {
 	/**
 	* asks for E or D, loops until a valid input is received
 	*
-	*@param s - the Scanner object
-	*@param fileName - the file name
-	*@return ans - to encode or to decode, in the form of "E" or "D"
+	* @param s - the Scanner object
+	* @param fileName - the file name
+	* @return ans - to encode or to decode, in the form of "E" or "D"
 	*/
+	
         public static String enDeCode(String fileName, Scanner s){
                 boolean valid = false;
                 String ans = "";
@@ -89,16 +92,17 @@ public class Solitaire {
 	/**
 	* asks for message
 	*
-	*@param s - the Scanner object
-	*@return message - the message
+	* @param s - the Scanner object
+	* @return message - the message
 	*/
+        
 	public static String getMessage(Scanner s){
                 System.out.println("Enter message");
                 String message = s.nextLine();
                 return message;
         }
 	
-	public static Boolean playAgain(Scanner s){
+	public static boolean playAgain(Scanner s){
 		boolean playAgain = false;
 		System.out.println("Do you want to play again??");
                 String verdict = s.nextLine();
@@ -107,7 +111,7 @@ public class Solitaire {
 		if(letter1.equals("Y")){
 			playAgain = true;
 		}
-                return playAgain;
+		return playAgain;
 	}
 	
 }
