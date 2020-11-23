@@ -114,9 +114,12 @@ public class Solitaire {
 
 	public static void encrypt(String e){
 		//remove non-letters
-		String original = e.toUpperCase();
+		String original = e.toUpperCase;
 		while(original.contains(" ")){
 			original = original.replaceAll("\\s", "");
+		}
+		if(original % 5 > 0){
+
 		}
 		//make sure the messsage is a multiple of five, if not, pad out with X
 		//convert letters to numbers
