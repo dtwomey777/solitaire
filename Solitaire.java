@@ -98,7 +98,7 @@ public class Solitaire {
                 System.out.println("Enter message");
                 String message = s.nextLine();
                 return message;
-        }
+  }
 
 	public static boolean playAgain(Scanner s){
 		boolean playAgain = false;
@@ -112,4 +112,16 @@ public class Solitaire {
 		return playAgain;
 	}
 
+	public static void encrypt(String e){
+		String original = e;
+		
+		//remove non-letters
+		//capitalize and remove spaces
+		//make sure the messsage is a multiple of five, if not, pad out with X
+		//convert letters to numbers
+		//get keystream values
+		//add the numbers together
+		//if the added numbers are greater than 26, subtract by 26
+		//convert back to letters
+	}
 }
