@@ -5,7 +5,7 @@ import java.util.Scanner;
  * AP Computer Science A Solitaire Encryption Project.
  * 
  * 
- * @authors Declan Twomey, Amy Wang, Bill Fei
+ * @author Declan Twomey, Amy Wang, Bill Fei
  *
  */
 
