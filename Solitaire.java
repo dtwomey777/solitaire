@@ -1,10 +1,10 @@
 import java.io.File;
-import java.util.Scanner; 
+import java.util.Scanner;
 
 /**
  * AP Computer Science A Solitaire Encryption Project.
- * 
- * 
+ *
+ *
  * @author Declan Twomey, Amy Wang, Bill Fei
  *
  */
@@ -16,35 +16,34 @@ import java.util.Scanner;
 public class Solitaire {
 
 	private static int[] deck;
-	
+
 	public static void main(String[] args) {
-		//System.out.println("Hello, world.");
 		Scanner s = new Scanner(System.in);
 		String fileName = getFileName(s);
 
 	}
-	
+
 	/**
 	* test method recommended by pujara
 	* prints the array passed in
 	*
 	* @param array - an array
 	*/
-	
+
 	public static void printArray(int[] array){
 		for(int i = 0; i < array.length - 1; i++){
 			System.out.println(array[i]);
 		}
 	}
-	
+
 	/**
 	* asks for file name, loops until a valid file is inputed
 	*
 	* @param s - the Scanner object
-	* @return file - the filename 
+	* @return file - the filename
 	*/
-	
-	public static String getFileName(Scanner s){ 
+
+	public static String getFileName(Scanner s){
                 boolean found = false;
                 String file = "";
                 while(found == false){
@@ -61,7 +60,7 @@ public class Solitaire {
                 }
                 return file;
         }
-        
+
 	/**
 	* asks for E or D, loops until a valid input is received
 	*
@@ -69,7 +68,7 @@ public class Solitaire {
 	* @param fileName - the file name
 	* @return ans - to encode or to decode, in the form of "E" or "D"
 	*/
-	
+
         public static String enDeCode(String fileName, Scanner s){
                 boolean valid = false;
                 String ans = "";
@@ -88,20 +87,20 @@ public class Solitaire {
                 }
                 return ans;
         }
-	
+
 	/**
 	* asks for message
 	*
 	* @param s - the Scanner object
 	* @return message - the message
 	*/
-        
+
 	public static String getMessage(Scanner s){
                 System.out.println("Enter message");
                 String message = s.nextLine();
                 return message;
         }
-	
+
 	public static boolean playAgain(Scanner s){
 		boolean playAgain = false;
 		System.out.println("Do you want to play again??");
@@ -113,5 +112,5 @@ public class Solitaire {
 		}
 		return playAgain;
 	}
-	
+
 }
