@@ -20,7 +20,6 @@ public class Solitaire {
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		String fileName = getFileName(s);
-
 	}
 
 	/**
@@ -53,7 +52,7 @@ public class Solitaire {
                         found = f.canRead();
                         if(found == false){
                                 System.out.println("Bad file name.");
-                        }else{
+                        } else{
                                 found = true;
                                 file = fileName;
                         }
