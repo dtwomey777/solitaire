@@ -174,38 +174,114 @@ public class Solitaire {
 		//if the added numbers are greater than 26, subtract by 26
 		//convert back to letters
 	}
-		public static void step1() {
+	/**
+	 * Shuffles the deck according to specifications of step 1 of the algorithm.
+	 */
+	public static void step1() {
+		//We look for the A joker.
 		int i = 0;
 		while(deck[i] != 27) i ++;
+		//Do the swaps. We use modulus since we might wrap around the array.
 		int temp = deck[i];
 		deck[i] = deck[(i + 1) % deck.length];
 		deck[(i + 1) % deck.length] = temp;
 	}
+	/**
+	 * Shuffles the deck according to specifications of step 2 of the algorithm.
+	 */
 	public static void step2() {
+		//We look for the B joker.
 		int i = 0;
 		while(deck[i] != 28) i ++;
+		//Do the swaps. We use modulus since we might wrap around the array.
 		int temp = deck[i];
 		deck[i] = deck[(i + 1) % deck.length];
 		deck[(i + 1) % deck.length] = temp;
 		deck[(i + 1) % deck.length] = deck[(i + 2) % deck.length];
 		deck[(i + 2) % deck.length] = temp;
 	}
+	/**
+	 * Shuffles the deck according to specifications of step 3 of the algorithm.
+	 */
 	public static void step3() {
+		//We find the A and B jokers and store them.
 		int pos1 = 0;
 		int pos2 = 0;
 		for(int i = 0; i < deck.length; i ++){
 			if(deck[i] == 27) pos1 = i;
 			if(deck[i] == 28) pos2 = i;
 		}
-		for(int i = 0; i < (pos1 + pos2) / 2 - pos1; i ++){
-			int temp = deck[i + pos1];
-			deck[i + pos1] = deck[pos2 - i];
-			deck[pos2 - i] = temp;
+		//We want pos1 < pos2.
+		if(pos2 < pos1) {
+			int temp = pos2;
+			pos2 = pos1;
+			pos1 = temp;
 		}
-		for(int i = 0; i < deck.length / 2; i ++){
-			int temp = deck[i];
-			deck[i] = deck[deck.length - 1 - i];
-			deck[deck.length - 1 - i] = temp;
+		//We create a copy of the array so we can keep track of the original stuff.
+		int[] deckCopy = new int[deck.length];
+		//Do step 3 of algorithm.
+		for(int i = 0; i < deck.length; i ++) {
+			deckCopy[i] = deck[i];
 		}
+		for(int i = pos2 + 1; i < deck.length; i ++) {
+			deck[i - pos2 - 1] = deckCopy[i];
+		}
+		for(int i = 0; i < pos1; i ++) {
+			deck[deck.length - pos1 + i] = deckCopy[i];
+		}
+		for(int i = deck.length - pos2 - 1; i < deck.length - pos1; i ++) {
+			deck[i] = deckCopy[pos1 + i - (deck.length - pos2 - 1)];
+		}
+	}
+	/*
+	 * Shuffles the deck according to specifications of step 3 of the algorithm.
+	 */
+	public static void step4() {
+		//We make a copy of the deck to keep track of the original while we are changing it.
+		int[] deckCopy = new int[deck.length];
+		for(int i = 0; i < deck.length; i ++) {
+			deckCopy[i] = deck[i];
+		}
+		//We look at the last card. If it is a joker we make the value 27.
+		int lastCard = deckCopy[deck.length - 1];
+		if(lastCard == 28) lastCard --;
+		//We swap according to the algorithm.
+		for(int i = lastCard; i < deck.length; i ++) {
+			deck[i - lastCard] = deckCopy[i];
+		}
+		for(int i = deck.length - lastCard - 1; i < deck.length; i ++) {
+			deck[i] = deckCopy[i - (deck.length - lastCard - 1)];
+		}
+		deck[deck.length - 1] = lastCard;
+	}
+	/**
+	 * Looks at the top card and the card counting down from the top card.
+	 * @return the value of the card, if joker return -1;
+	 */
+	public static int step5() {
+		int topCard = deck[0] - 1;
+		if(deck[topCard] == 28 || deck[topCard] == 27) return -1;
+		return deck[topCard + 1];
+	}
+	/**
+	 * Generates the keystream using the algorithm
+	 * @return
+	 */
+	public static int algorithm() {
+		//Run the algorithm
+		step1();
+		step2();
+		step3();
+		step4();
+		//If it's not a joker then return the keystream.
+		if(step5() != -1) return step5();
+		//While it's not a joker run the algorithm.
+		while(step5() != -1) {
+			step1();
+			step2();
+			step3();
+			step4();
+		}
+		return step5();
 	}
 }
