@@ -118,12 +118,17 @@ public class Solitaire {
 		while(original.contains(" ")){
 			original = original.replaceAll("\\s", "");
 		}
+		for (int y = 0; y < original.length; y++){
+			original[i] = original[i].replaceAll("[^a-zA-Z]", "");
+			original[i] = original[i].toUpperCase();
+		}
 		if(original % 5 > 0){
 			int mod = original % 5;
 			for(int i = 1; i<= mod; i++){
 				original = original + "X";
 			}
 		}
+    
 		for(int x = 0; x < original.length(); i++){
 			
 		}
