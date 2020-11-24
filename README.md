@@ -1,6 +1,4 @@
-# Due date?
-I'm kind of confused about this. In the specs he says that for all virtual groups, the project is due by noon,
-but canvas says 11:59 pm 
+# Turns out this was actually due at noon today.
 
 # Solitaire Project
 This is the GitHub page for the Solitaire Project for AP Computer Science A.
