@@ -113,7 +113,8 @@ public class Solitaire {
 	}
 
 	public static void encrypt(String e){
-		String original = e;
+		String original = e.replaceAll("[^a-zA-Z]", "");
+		original = original.toUpperCase();
 		while(original.contains(" ")){
 			original = original.replaceAll("\\s", "");
 		}
@@ -127,13 +128,48 @@ public class Solitaire {
 				original = original + "X";
 			}
 		}
-		for(int x = 0; x < original.length(); x++){
-			int num = original.charAt(x)- 'A' + 1;
+    
+		for(int x = 0; x < original.length(); i++){
+			
 		}
-
+		//convert letters to numbers
 		//get keystream values
 		//add the numbers together
 		//if the added numbers are greater than 26, subtract by 26
 		//convert back to letters
+	}
+		public static void step1() {
+		int i = 0;
+		while(deck[i] != 27) i ++;
+		int temp = deck[i];
+		deck[i] = deck[(i + 1) % deck.length];
+		deck[(i + 1) % deck.length] = temp;
+	}
+	public static void step2() {
+		int i = 0;
+		while(deck[i] != 28) i ++;
+		int temp = deck[i];
+		deck[i] = deck[(i + 1) % deck.length];
+		deck[(i + 1) % deck.length] = temp;
+		deck[(i + 1) % deck.length] = deck[(i + 2) % deck.length];
+		deck[(i + 2) % deck.length] = temp;
+	}
+	public static void step3() {
+		int pos1 = 0;
+		int pos2 = 0;
+		for(int i = 0; i < deck.length; i ++){
+			if(deck[i] == 27) pos1 = i;
+			if(deck[i] == 28) pos2 = i;
+		}
+		for(int i = 0; i < (pos1 + pos2) / 2 - pos1; i ++){
+			int temp = deck[i + pos1];
+			deck[i + pos1] = deck[pos2 - i];
+			deck[pos2 - i] = temp;
+		}
+		for(int i = 0; i < deck.length / 2; i ++){
+			int temp = deck[i];
+			deck[i] = deck[deck.length - 1 - i];
+			deck[deck.length - 1 - i] = temp;
+		}
 	}
 }
