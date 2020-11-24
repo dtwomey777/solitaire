@@ -113,8 +113,8 @@ public class Solitaire {
 	}
 
 	public static void encrypt(String e){
-		//remove non-letters
-		String original = e.toUpperCase();
+		String original = e.replaceAll("[^a-zA-Z]", "");
+		original = original.toUpperCase();
 		while(original.contains(" ")){
 			original = original.replaceAll("\\s", "");
 		}
@@ -124,7 +124,9 @@ public class Solitaire {
 				original = original + "X";
 			}
 		}
-		//convert letters to numbers
+		for(int x = 0; x < original.length(); x++){
+			int num = original.charAt(x)- 'A' + 1;
+		}
 		//get keystream values
 		//add the numbers together
 		//if the added numbers are greater than 26, subtract by 26
