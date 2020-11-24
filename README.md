@@ -1,4 +1,4 @@
-# Due date?
+# Due date -- It was actually due at noon today so we'll be submitting late
 I'm kind of confused about this. In the specs he says that for all virtual groups, the project is due by noon,
 but canvas says 11:59 pm 
 
