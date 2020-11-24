@@ -119,7 +119,6 @@ public class Solitaire {
     		return message;
   	}
 
-	//IM NOT SURE IF WE'RE USING THIS
 	/*
 	* takes user inputed message, gets rid of all spaces,
 	* turns all letters into capitals, and stores each letter
@@ -128,6 +127,7 @@ public class Solitaire {
 	* @param message - user inputed message
 	* @param letters - string array containing individual letters
 	*/
+	
 	public static String[] format(String message){
 		String uCase = message.toUpperCase();
 		String formatted = uCase.replaceAll("[^a-zA-Z]", "");
@@ -146,6 +146,13 @@ public class Solitaire {
 		}
 		return letters;
 	}
+	
+	/*
+	* asks for whether or not to play again
+	*
+	* @param s - the scanner
+	* @return playAgain - boolean true for yes, false for no.
+	*/
 
 	public static boolean playAgain(Scanner s){
 		boolean playAgain = false;
