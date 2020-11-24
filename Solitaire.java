@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -16,6 +17,8 @@ import java.util.Scanner;
 public class Solitaire {
 
 	private static int[] deck;
+	
+	public static final int SIZE = 28;
 
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
@@ -44,20 +47,31 @@ public class Solitaire {
 
 	public static String getFileName(Scanner s){
 		boolean found = false;
-    String file = "";
+    		String file = "";
 		while(found == false){
-			System.out.println("Enter a file to seed deck");
-      String fileName = s.nextLine();
-      File f = new File(fileName);
-      found = f.canRead();
-      if(found == false){
-				System.out.println("Bad file name.");
-			} else{
-				found = true;
+			try{
+				System.out.println("Enter a file to seed deck");
+      				String fileName = s.nextLine();
+     				File f = new File(fileName);
+				Scanner fileScan = new Scanner(f);
+     				found = true;
 				file = fileName;
+				int count = 0;
+				while(f.hasNextInt()){
+					for(int i = 0; i < SIZE; i++){
+						deck[i] = f.nextInt();
+					}
+				}
+			catch(FileNotFoundException e){
+				System.out.println("Bad filename.");
 			}
-		return file;
 		}
+		return file;
+	}
+	
+	public static void readFile(File f, Scanner s){
+		
+		
 	}
 
 	/**
@@ -68,23 +82,23 @@ public class Solitaire {
 	* @return ans - to encode or to decode, in the form of "E" or "D"
 	*/
 
-  public static String enDeCode(String fileName, Scanner s){
+ 	public static String enDeCode(String fileName, Scanner s){
 		boolean valid = false;
 		String ans = "";
-    while(valid == false){
+    		while(valid == false){
 			System.out.println("(E)ncode or (D)ecode");
 			String verdict = s.nextLine();
-      String verdictCaps = verdict.toUpperCase();
-      String letter1 = verdictCaps.substring(0);
-      System.out.println(letter1);
-      if(letter1.equals("E") || letter1.equals("D")){
+      			String verdictCaps = verdict.toUpperCase();
+      			String letter1 = verdictCaps.substring(0);
+      			System.out.println(letter1);
+      			if(letter1.equals("E") || letter1.equals("D")){
 				valid = true;
-        ans = letter1;
+        			ans = letter1;
 			} else{
 				System.out.println("Invalid choice. Try again.");
 			}
-    }
-    return ans;
+    		}
+    		return ans;
 	}
 
 	/**
@@ -96,18 +110,20 @@ public class Solitaire {
 
 	public static String getMessage(Scanner s){
 		System.out.println("Enter message");
-    String message = s.nextLine();
-    return message;
-  }
+    		String message = s.nextLine();
+    		return message;
+  	}
 
 	public static boolean playAgain(Scanner s){
 		boolean playAgain = false;
 		System.out.println("Do you want to play again??");
-    String verdict = s.nextLine();
+    		String verdict = s.nextLine();
 		String verdictCaps = verdict.toUpperCase();
 		String letter1 = verdict.substring(0);
 		if(letter1.equals("Y")){
 			playAgain = true;
+		} else{
+			System.out.println("Thanks for playing!");
 		}
 		return playAgain;
 	}
