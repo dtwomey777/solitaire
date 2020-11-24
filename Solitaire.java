@@ -23,6 +23,7 @@ public class Solitaire {
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		String fileName = getFileName(s);
+		String message = getMessage(s);
 	}
 
 	/**
@@ -68,11 +69,6 @@ public class Solitaire {
 		}
 		return file;
 	}
-	
-	public static void readFile(File f, Scanner s){
-		
-		
-	}
 
 	/**
 	* asks for E or D, loops until a valid input is received
@@ -113,6 +109,18 @@ public class Solitaire {
     		String message = s.nextLine();
     		return message;
   	}
+		
+	 public static String[] formatMess(String message, Scanner s){
+		String uCase = message.toUpperCase();
+		String formatted = uCase.replaceAll("[^a-zA-Z]", "");
+		int messageLen = formatted.length();
+		String[] letters = new String[messageLen];
+		for(int i = 0; i < messageLen ; i++){
+			String lttr = formatted.substring(i, i+1);
+			letters[i] = lttr; 
+		}	
+		return letters;
+	}
 
 	public static boolean playAgain(Scanner s){
 		boolean playAgain = false;
