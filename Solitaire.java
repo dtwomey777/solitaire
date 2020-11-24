@@ -113,7 +113,7 @@ public class Solitaire {
 	}
 
 	public static void encrypt(String e){
-		String original = e
+		String original = e;
 		while(original.contains(" ")){
 			original = original.replaceAll("\\s", "");
 		}
