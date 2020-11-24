@@ -28,13 +28,34 @@ public class Solitaire {
 	*/
 
 	private static int[] deck = new int[SIZE];
-
+	/*
+	 * We have to initialize an array that keeps the original
+	 * array so that we can reset it every time.
+	 */
+	private static int[] originalDeck = new int[SIZE];
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		String fileName = getFileName(s);
+		String option = enDeCode(fileName, s);
 		String message = getMessage(s);
+		if(option.equals("E")) encrypt(format(message));
+		if(option.equals("D")) decrypt(format(message));
+		while(playAgain(s)) {
+			resetDeck();
+			option = enDeCode(fileName, s);
+			message = getMessage(s);
+			if(option.equals("E")) encrypt(format(message));
+			if(option.equals("D")) decrypt(format(message));
+		}
 	}
-
+	/**
+	 * Resets the deck.
+	 */
+	public static void resetDeck() {
+		for(int i = 0; i < originalDeck.length; i ++) {
+			deck[i] = originalDeck[i];
+		}
+	}
 	/**
 	* test method recommended by pujara
 	* prints the array passed in
@@ -91,11 +112,10 @@ public class Solitaire {
 		boolean valid = false;
 		String ans = "";
     		while(valid == false){
-			System.out.println("(E)ncode or (D)ecode");
+			System.out.println("(E)ncode or (D)ecode ");
 			String verdict = s.nextLine();
       			String verdictCaps = verdict.toUpperCase();
-      			String letter1 = verdictCaps.substring(0);
-      			System.out.println(letter1);
+      			String letter1 = verdictCaps.substring(0, 1);
       			if(letter1.equals("E") || letter1.equals("D")){
 				valid = true;
         			ans = letter1;
@@ -119,6 +139,7 @@ public class Solitaire {
     		return message;
   	}
 
+	//IM NOT SURE IF WE'RE USING THIS
 	/*
 	* takes user inputed message, gets rid of all spaces,
 	* turns all letters into capitals, and stores each letter
@@ -127,8 +148,7 @@ public class Solitaire {
 	* @param message - user inputed message
 	* @param letters - string array containing individual letters
 	*/
-	
-	public static String[] format(String message){
+	public static char[] format(String message){
 		String uCase = message.toUpperCase();
 		String formatted = uCase.replaceAll("[^a-zA-Z]", "");
 		int messageLen = formatted.length();
@@ -139,27 +159,20 @@ public class Solitaire {
 			}
 			messageLen = formatted.length();
 		}
-		String[] letters = new String[messageLen];
+		char[] letters = new char[messageLen];
 		for(int i = 0; i < messageLen ; i++){
-			String lttr = formatted.substring(i, i+1);
+			char lttr = formatted.charAt(i);
 			letters[i] = lttr;
 		}
 		return letters;
 	}
-	
-	/*
-	* asks for whether or not to play again
-	*
-	* @param s - the scanner
-	* @return playAgain - boolean true for yes, false for no.
-	*/
 
 	public static boolean playAgain(Scanner s){
 		boolean playAgain = false;
 		System.out.println("Do you want to play again??");
-    		String verdict = s.nextLine();
+    	String verdict = s.nextLine();
 		String verdictCaps = verdict.toUpperCase();
-		String letter1 = verdict.substring(0);
+		String letter1 = verdictCaps.substring(0, 1);
 		if(letter1.equals("Y")){
 			playAgain = true;
 		} else{
@@ -174,13 +187,39 @@ public class Solitaire {
 	* @param e the formatted array from format()
 	*/
 
-	public static void encrypt(String[] e) {
-		//convert letters to numbers
-		//get keystream values
-		//add the numbers together
-		//if the added numbers are greater than 26, subtract by 26
-		//convert back to letters
+	public static void encrypt(char[] e) {
+		for(int i = 0; i < e.length; i ++) {
+			e[i] -= 65;
+			int debug = algorithm();
+			e[i] += debug;
+			e[i] %= 26;
+			e[i] += 65;
+		}
+		for(int i = 0; i < e.length; i ++) {
+			System.out.print(e[i]);
+		}
+		System.out.println();
 	}
+	/**
+	* Decrypts the message.
+	*
+	* @param e the formatted array from format()
+	*/
+
+	public static void decrypt(char[] e) {
+		for(int i = 0; i < e.length; i ++) {
+			e[i] -= 65;
+			e[i] -= algorithm();
+			e[i] += 26;
+			e[i] %= 26;
+			e[i] += 65;
+		}
+		for(int i = 0; i < e.length; i ++) {
+			System.out.print(e[i]);
+		}
+		System.out.println();
+	}
+
 	/**
 	 * Shuffles the deck according to specifications of step 1 of the algorithm.
 	 */
@@ -251,15 +290,16 @@ public class Solitaire {
 		}
 		//We look at the last card. If it is a joker we make the value 27.
 		int lastCard = deckCopy[deck.length - 1];
+		int realLastCard = lastCard;
 		if(lastCard == 28) lastCard --;
 		//We swap according to the algorithm.
 		for(int i = lastCard; i < deck.length; i ++) {
 			deck[i - lastCard] = deckCopy[i];
 		}
-		for(int i = deck.length - lastCard - 1; i < deck.length; i ++) {
+		for(int i = deck.length - lastCard - 1; i < deck.length - 1; i ++) {
 			deck[i] = deckCopy[i - (deck.length - lastCard - 1)];
 		}
-		deck[deck.length - 1] = lastCard;
+		deck[deck.length - 1] = realLastCard;
 	}
 	/**
 	 * Looks at the top card and the card counting down from the top card.
@@ -268,7 +308,7 @@ public class Solitaire {
 	public static int step5() {
 		int topCard = deck[0] - 1;
 		if(deck[topCard] == 28 || deck[topCard] == 27) return -1;
-		return deck[topCard + 1];
+		return deck[topCard];
 	}
 	/**
 	 * Generates the keystream using the algorithm
@@ -291,38 +331,4 @@ public class Solitaire {
 		}
 		return step5();
 	}
-	public static void step4() {
-		int[] deckCopy = new int[deck.length];
-		for(int i = 0; i < deck.length; i ++) {
-			deckCopy[i] = deck[i];
-		}
-		int lastCard = deckCopy[deck.length - 1];
-		if(lastCard == 28) lastCard --;
-		for(int i = 0; i < deck.length - 1 - lastCard; i ++) {
-			deck[i] = deckCopy[i + lastCard];
-		}
-		for(int i = 0; i < lastCard; i ++) {
-			deck[i + deck.length - lastCard - 1] = deckCopy[i];
-		}
-	}
-	public static int step5() {
-		int topCard = deck[0];
-		if(deck[topCard] == 28 || deck[topCard] == 27) return -1;
-		return deck[topCard];
-	}
-	public static int algorithm() {
-		step1();
-		step2();
-		step3();
-		step4();
-		if(step5() != -1) return step5();
-		while(step5() != -1) {
-			step1();
-			step2();
-			step3();
-			step4();
-		}
-		return step5();
-	}
-	
 }
