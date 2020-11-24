@@ -15,10 +15,10 @@ import java.util.Scanner;
 	//Amy: User Interface
 
 public class Solitaire {
-
-	private static int[] deck;
 	
 	public static final int SIZE = 28;
+	
+	private static int[] deck = new int[SIZE];
 
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
@@ -58,12 +58,12 @@ public class Solitaire {
      				found = true;
 				file = fileName;
 				int count = 0;
-				while(f.hasNextInt()){
+				while(fileScan.hasNextInt()){
 					for(int i = 0; i < SIZE; i++){
-						deck[i] = f.nextInt();
+						deck[i] = fileScan.nextInt();
 					}
 				}
-			catch(FileNotFoundException e){
+			}catch(FileNotFoundException e){
 				System.out.println("Bad filename.");
 			}
 		}
