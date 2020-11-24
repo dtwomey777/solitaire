@@ -208,4 +208,38 @@ public class Solitaire {
 			deck[deck.length - 1 - i] = temp;
 		}
 	}
+	public static void step4() {
+		int[] deckCopy = new int[deck.length];
+		for(int i = 0; i < deck.length; i ++) {
+			deckCopy[i] = deck[i];
+		}
+		int lastCard = deckCopy[deck.length - 1];
+		if(lastCard == 28) lastCard --;
+		for(int i = 0; i < deck.length - 1 - lastCard; i ++) {
+			deck[i] = deckCopy[i + lastCard];
+		}
+		for(int i = 0; i < lastCard; i ++) {
+			deck[i + deck.length - lastCard - 1] = deckCopy[i];
+		}
+	}
+	public static int step5() {
+		int topCard = deck[0];
+		if(deck[topCard] == 28 || deck[topCard] == 27) return -1;
+		return deck[topCard];
+	}
+	public static int algorithm() {
+		step1();
+		step2();
+		step3();
+		step4();
+		if(step5() != -1) return step5();
+		while(step5() != -1) {
+			step1();
+			step2();
+			step3();
+			step4();
+		}
+		return step5();
+	}
+	
 }
