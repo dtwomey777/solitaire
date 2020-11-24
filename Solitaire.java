@@ -15,18 +15,18 @@ import java.util.Scanner;
 	//Amy: User Interface
 
 public class Solitaire {
-	
+
 	/*
 	* integer constant for the deck size
 	*/
-	
+
 	public static final int SIZE = 28;
-	
+
 	/*
 	* initializes an array of size SIZE that will
 	* be used to store the values of the input file.
 	*/
-	
+
 	private static int[] deck = new int[SIZE];
 
 	public static void main(String[] args) {
@@ -118,10 +118,10 @@ public class Solitaire {
     		String message = s.nextLine();
     		return message;
   	}
-	
+
 	//IM NOT SURE IF WE'RE USING THIS
 	/*
-	* takes user inputed message, gets rid of all spaces, 
+	* takes user inputed message, gets rid of all spaces,
 	* turns all letters into capitals, and stores each letter
 	* individually in a string array.
 	*
@@ -132,11 +132,18 @@ public class Solitaire {
 		String uCase = message.toUpperCase();
 		String formatted = uCase.replaceAll("[^a-zA-Z]", "");
 		int messageLen = formatted.length();
+		if (messageLen % 5 > 0){
+			int mod = messageLen % 5;
+			for (int x = 0; x < mod; x++){
+				formatted = formatted + 'X';
+			}
+			messageLen = formatted.length();
+		}
 		String[] letters = new String[messageLen];
 		for(int i = 0; i < messageLen ; i++){
 			String lttr = formatted.substring(i, i+1);
-			letters[i] = lttr; 
-		}	
+			letters[i] = lttr;
+		}
 		return letters;
 	}
 
@@ -154,26 +161,13 @@ public class Solitaire {
 		return playAgain;
 	}
 
-	public static void encrypt(String e){
-		String original = e.replaceAll("[^a-zA-Z]", "");
-		original = original.toUpperCase();
-		while(original.contains(" ")){
-			original = original.replaceAll("\\s", "");
-		}
-		for (int y = 0; y < original.length; y++){
-			original[i] = original[i].replaceAll("[^a-zA-Z]", "");
-			original[i] = original[i].toUpperCase();
-		}
-		if(original % 5 > 0){
-			int mod = original % 5;
-			for(int i = 1; i<= mod; i++){
-				original = original + "X";
-			}
-		}
-    
-		for(int x = 0; x < original.length(); i++){
-			
-		}
+	/**
+	* Encrypts the message.
+	*
+	* @param e the formatted array from format()
+	*/
+
+	public static void encrypt(String[] e) {
 		//convert letters to numbers
 		//get keystream values
 		//add the numbers together
