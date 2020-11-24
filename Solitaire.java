@@ -16,7 +16,16 @@ import java.util.Scanner;
 
 public class Solitaire {
 	
+	/*
+	* integer constant for the deck size
+	*/
+	
 	public static final int SIZE = 28;
+	
+	/*
+	* initializes an array of size SIZE that will
+	* be used to store the values of the input file.
+	*/
 	
 	private static int[] deck = new int[SIZE];
 
@@ -109,8 +118,17 @@ public class Solitaire {
     		String message = s.nextLine();
     		return message;
   	}
-		
-	 public static String[] formatMess(String message, Scanner s){
+	
+	//IM NOT SURE IF WE'RE USING THIS
+	/*
+	* takes user inputed message, gets rid of all spaces, 
+	* turns all letters into capitals, and stores each letter
+	* individually in a string array.
+	*
+	* @param message - user inputed message
+	* @param letters - string array containing individual letters
+	*/
+	public static String[] format(String message){
 		String uCase = message.toUpperCase();
 		String formatted = uCase.replaceAll("[^a-zA-Z]", "");
 		int messageLen = formatted.length();
